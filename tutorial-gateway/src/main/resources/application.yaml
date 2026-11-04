@@ -1,0 +1,31 @@
+server:
+  port: 8080
+app:
+  cors:
+    allowed-origins: "*"
+    allowed-methods: "*"
+    allowed-headers: "*"
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+spring:
+  application:
+    name: spring-cloud-eureka-client-gateway
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+            - id: category
+              uri: lb://SPRING-CLOUD-EUREKA-CLIENT-CATEGORY
+              predicates:
+                - Path=/category/**
+            - id: author
+              uri: lb://SPRING-CLOUD-EUREKA-CLIENT-AUTHOR
+              predicates:
+                - Path=/author/**
+            - id: game
+              uri: lb://SPRING-CLOUD-EUREKA-CLIENT-GAME
+              predicates:
+                - Path=/game/**
